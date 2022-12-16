@@ -9,11 +9,17 @@
 <body>
     <?php
 //1. Definirajte varijablu names i dodjelite joj niz koji sadrži pet imena.
-$names = ['Antonio','Ivan','Marko','Matej','Pero'];
+$names = [
+    'ime1' => 'Antonio',
+    'ime2' => 'Ivan',
+    'ime3' => 'Marko',
+    'ime4' => 'Matej',
+    'ime5' => 'Pero'
+        ];
 
 //2. Koristeći petlju foreach, iz niza ispišite ključeve i pripadajuće im vrijednosti.
-foreach($names as $b){
-    echo $b, '<br />';
+foreach($names as $imebroj => $ime){
+    echo "$imebroj je $ime", '<br />';
 }
 
 ?>
