@@ -33,7 +33,7 @@ var_dump(count($primeNumbers));
 echo '<hr />';
 echo 'Zbroj niza je ' . array_sum($primeNumbers);
 echo '<hr />';
-// Sortitajte niz silazno po vrijednostima, te ponovo ispišite cijeli niz.
+// 5.Sortitajte niz silazno po vrijednostima, te ponovo ispišite cijeli niz.
 rsort($primeNumbers);
 var_dump($primeNumbers);
 
