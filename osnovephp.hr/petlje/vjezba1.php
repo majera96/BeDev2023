@@ -20,8 +20,8 @@ while($i<=10){
     echo '<hr />';
 
 //2. Koristeći petlju for, ispišite sve parne brojeve do 100.
-for ($i = 1; $i <= 100; $i++) {
-    if ($i % 2 === 0 && $i !== 0) {
+for ($i = 0; $i <= 100; $i++){
+    if ($i % 2 === 0 && $i !== 0){
         echo $i, ' ';
     }
 }
