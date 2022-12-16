@@ -10,11 +10,11 @@
     <?php
 //1. Definirajte varijablu names i dodjelite joj niz koji sadrži pet imena.
 $names = [
-    'ime1' => 'Antonio',
-    'ime2' => 'Ivan',
-    'ime3' => 'Marko',
-    'ime4' => 'Matej',
-    'ime5' => 'Pero'
+    'ime broj 1' => 'Antonio',
+    'ime broj 2' => 'Ivan',
+    'ime broj 3' => 'Marko',
+    'ime broj 4' => 'Matej',
+    'ime broj 5' => 'Pero'
         ];
 
 //2. Koristeći petlju foreach, iz niza ispišite ključeve i pripadajuće im vrijednosti.
