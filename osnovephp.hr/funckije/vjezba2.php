@@ -26,7 +26,7 @@
 
  //Ispišite vrijednost varijable.
 
- echo $text;
+ echo $text, '<br />';
 
     ?>
 </body>
