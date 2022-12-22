@@ -31,12 +31,9 @@
     echo $var(rand(1,10)), '<br />';
 
     //4. Ponovite postupak 5 puta.
-    echo $var(rand(1,10)), '<br />';
-    echo $var(rand(1,10)), '<br />';
-    echo $var(rand(1,10)), '<br />';
-    echo $var(rand(1,10)), '<br />';
-    echo $var(rand(1,10)), '<br />';
-
+    for ($i = 0; $i < 5; $i++) {
+        echo $var(rand(1,10)), '<br />';
+    } 
     ?>
     
 </body>
