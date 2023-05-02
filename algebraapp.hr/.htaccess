@@ -1,0 +1,17 @@
+# uključiti URL rewrite
+RewriteEngine On
+
+# za produkciju - ne radi, popraviti
+# RewriteBase /mojaaplikacija/
+
+# Postavljanje na ubutu serveru: https://www.digitalocean.com/community/tutorials/how-to-rewrite-urls-with-mod_rewrite-for-apache-on-ubuntu-16-04
+
+# preskoči ako postoji datoteka
+RewriteCond %{REQUEST_FILENAME} !-f
+
+# preskoči ako postoji direktorij
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Svi zahtjevi idu na index.php
+RewriteRule (.*) index.php [L,E=PATH_INFO:/$1]
+

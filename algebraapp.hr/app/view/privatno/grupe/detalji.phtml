@@ -1,0 +1,26 @@
+<form action="<?=App::config('url')?>grupa/promjena/<?=$e->sifra?>" 
+method="post">
+
+<div class="grid-x grid-padding-x">
+    <div class="large-4 cell">
+        <?php include_once 'opciPodaci.phtml' ?>
+    </div>
+    <div class="large-8 cell">
+        <?php include_once 'polaznici.phtml' ?>
+    </div>
+</div>
+
+
+<?=$poruka?>
+
+  <div class="grid-x grid-padding-x">
+    <div class="large-6 cell">
+        <a class="alert button expanded" 
+            href="<?=App::config('url')?>grupa">Odustani</a>
+    </div>
+    <div class="large-6 cell">
+        <input type="submit" class="button expanded" value="Spremi"></input>
+    </div>
+  </div>
+
+</form>

@@ -1,0 +1,40 @@
+<a class="success button expanded" 
+    href="<?=App::config('url')?>grupa/nova">
+        Dodaj novu grupu
+</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>Naziv</th>
+            <th>Smjer</th>
+            <th>Predavač</th>
+            <th>Datum početka</th>
+            <th>Maksimalno polaznik</th>
+            <th>Akcija</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach($entiteti as $e): ?>
+            <tr>
+                <td><?=$e->naziv?></td>
+                <td><?=$e->smjer?></td>
+                <td><?=$e->predavac?></td>
+                <td><?=$e->datumpocetka?></td>
+                <td style="text-align: right;"><?=$e->maksimalnopolaznika?></td>
+                <td>
+                    <a href="<?=App::config('url')?>grupa/promjena/<?=$e->sifra?>">
+                            <i style="color: blue;" 
+                            class="step fi-pencil size-36"></i>
+                     </a>
+                    <?php if($e->polaznika==0): ?>
+                        <a href="<?=App::config('url')?>grupa/brisanje/<?=$e->sifra?>">
+                            <i style="color: red;" 
+                            class="step fi-page-delete size-36"></i>
+                        </a>
+                    <?php endif; ?>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>

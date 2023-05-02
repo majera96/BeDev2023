@@ -1,0 +1,35 @@
+<label for="naziv">Naziv</label>
+<input type="text" name="naziv" id="naziv" value="<?=$e->naziv?>">
+
+<label for="smjer">Smjer</label>
+<select name="smjer" id="smjer">
+    <?php foreach($smjerovi as $s): ?>
+        <option
+        <?php if ($e->smjer==$s->sifra){
+            echo ' selected="selected"';
+        }
+        ?>
+        value="<?=$s->sifra?>"><?=$s->naziv?></option>
+    <?php endforeach; ?>
+</select>
+
+<label for="predavac">Predavač</label>
+<select name="predavac" id="predavac">
+    <?php foreach($predavaci as $p): ?>
+        <option
+        <?php if ($e->predavac==$p->sifra){
+            echo ' selected="selected"';
+        }
+        ?>
+        value="<?=$p->sifra?>"><?=$p->prezime?> <?=$p->ime?></option>
+    <?php endforeach; ?>
+</select>
+
+
+<label for="datumpocetka">Datum početka</label>
+<input type="date" name="datumpocetka" id="datumpocetka" 
+value="<?=$e->datumpocetka?>" lang="hr-HR">
+
+<label for="maksimalnopolaznika">Maksimalno polaznika</label>
+<input type="text" name="maksimalnopolaznika" id="maksimalnopolaznika" 
+value="<?=$e->maksimalnopolaznika?>">
