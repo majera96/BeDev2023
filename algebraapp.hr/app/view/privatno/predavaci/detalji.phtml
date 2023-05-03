@@ -1,4 +1,5 @@
 <form method="post" 
+enctype="multipart/form-data"
 action="<?=App::config('url')?>predavac/promjena/<?=$e->sifra?>">
   <h4 class="text-center">Detalji predavača</h4>
   
@@ -23,6 +24,11 @@ action="<?=App::config('url')?>predavac/promjena/<?=$e->sifra?>">
   <label>IBAN
     <input type="text" name="iban" value="<?=$e->iban?>" />
   </label>
+
+  <label>Slika (jpg)
+    <input type="file" name="slika">
+  </label>
+  <img src="<?=$e->slika?>" alt="">
 
   <?=$poruka?>
 

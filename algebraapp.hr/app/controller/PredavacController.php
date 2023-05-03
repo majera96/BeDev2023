@@ -12,8 +12,19 @@ class PredavacController extends AutorizacijaController
 
     public function index()
     {
+
+        $lista = Predavac::read();
+        foreach($lista as $p){
+            if(file_exists(BP . 'public' . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR
+            . 'predavaci' . DIRECTORY_SEPARATOR . $p->sifra . '.jpg' )){
+                $p->slika= App::config('url') . 'public/img/predavaci/' . $p->sifra . '.jpg';
+            }else{
+                $p->slika= App::config('url') . 'public/img/nepoznato.jpg';
+            }
+        }
+
         $this->view->render($this->phtmlDir . 'index',[
-            'entiteti'=>Predavac::read()
+            'entiteti'=>$lista
         ]);
     }
 
@@ -39,6 +50,13 @@ class PredavacController extends AutorizacijaController
                 header('location: ' . App::config('url') . 'predavac');
             }
 
+            if(file_exists(BP . 'public' . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR
+            . 'predavaci' . DIRECTORY_SEPARATOR . $sifra . '.jpg' )){
+                $e->slika= App::config('url') . 'public/img/predavaci/' . $sifra . '.jpg';
+            }else{
+                $e->slika= App::config('url') . 'public/img/nepoznato.jpg';
+            }
+
             $this->view->render($this->phtmlDir . 'detalji',[
                 'e' => $e,
                 'poruka' => 'Unesite podatke'
@@ -48,12 +66,23 @@ class PredavacController extends AutorizacijaController
 
         $this->entitet = (object) $_POST;
         $this->entitet->sifra=$sifra;
+       
     
         if($this->kontrola()){
             Predavac::update((array)$this->entitet);
+
+            if(isset($_FILES['slika'])){
+                move_uploaded_file($_FILES['slika']['tmp_name'], 
+                BP . 'public' . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR
+                 . 'predavaci' . DIRECTORY_SEPARATOR . $sifra . '.jpg');
+            }
+
+
             header('location: ' . App::config('url') . 'predavac');
             return;
         }
+
+
 
         $this->view->render($this->phtmlDir . 'detalji',[
             'e'=>$this->entitet,
@@ -86,7 +115,7 @@ class PredavacController extends AutorizacijaController
     }
 
     private function kontrolaOib(){
-        //također kao i kod polaznika
+     //isto ko kod polaznika
         return true;
     }
 
@@ -96,7 +125,7 @@ class PredavacController extends AutorizacijaController
         header('location: ' . App::config('url') . 'predavac');
     }
 
-  /*   public function testinsert()
+   /* public function testinsert()
     {
         for($i=0;$i<10;$i++){
             echo Predavac::create([

@@ -3,6 +3,41 @@
 class Polaznik
 {
 
+    public static function mozeBrisati($sifra){
+        $veza = DB::getInstance();
+        $izraz = $veza->prepare('
+        
+            select count(*)
+            from clan
+            where polaznik = :sifra
+      
+        
+        '); 
+        $izraz->execute([
+            'sifra'=>$sifra
+        ]);
+        $ukupno = $izraz->fetchColumn();
+        return $ukupno==0;
+    }
+
+    public static function ukupnoPolaznika($uvjet)
+    {
+        $veza = DB::getInstance();
+        $izraz = $veza->prepare('
+        
+            select count(a.sifra)
+            from polaznik a 
+            inner join osoba b on a.osoba = b.sifra 
+            where concat(b.ime, \' \', b.prezime, \' \', ifnull(b.oib,\'\')) like :uvjet
+      
+        
+        '); 
+        $uvjet = '%' . $uvjet . '%';
+        $izraz->bindParam('uvjet',$uvjet);
+        $izraz->execute();
+        return $izraz->fetchColumn();
+    }
+
     public static function readOne($sifra)
     {
         $veza = DB::getInstance();
@@ -22,29 +57,40 @@ class Polaznik
     }
 
     // CRUD - R
-    public static function read()
+    public static function read($stranica, $uvjet)
     {
+
+        $rps = App::config('rps');
+        $od = $stranica * $rps - $rps;
+
+
         $veza = DB::getInstance();
         $izraz = $veza->prepare('
         
-            select a.sifra, a.brojugovora,
-            b.ime, b.prezime, b.email, 
-            b.oib, count(c.sifra) as grupa from 
-            polaznik a inner join
-            osoba b on a.osoba =b.sifra 
-            left join clan c 
-            on a.sifra = c.polaznik 
-            group by a.sifra, a.brojugovora,
-            b.ime, b.prezime, b.email, 
-            b.oib order by 4,3
+        select a.sifra, b.ime, b.prezime, b.email, b.oib, a.brojugovora, 
+        count(c.grupa) as grupa
+        from polaznik a 
+        inner join osoba b on a.osoba = b.sifra 
+        left join clan c on a.sifra =c.polaznik 
+        where concat(b.ime, \' \', b.prezime, \' \', ifnull(b.oib,\'\')) 
+                like :uvjet
+        group by 
+        a.sifra, b.ime, b.prezime, b.email, b.oib, a.brojugovora
+        order by 3, 2
+        limit :od, :rps
         
         ');
+        $uvjet = '%' . $uvjet . '%';
+        $izraz->bindValue('od',$od,PDO::PARAM_INT);
+        $izraz->bindValue('rps',$rps,PDO::PARAM_INT);
+        $izraz->bindParam('uvjet',$uvjet);
         $izraz->execute();
-        return $izraz->fetchAll();
+        return $izraz->fetchAll(); // vraća indeksni niz objekata tipa stdClass
     }
 
     // CRUD - C
-    public static function create($p)
+    public static function create($p) //$p kao parametri - napisano skraćeno
+    {
         $veza = DB::getInstance();
         $veza->beginTransaction();
         $izraz = $veza->prepare('
@@ -175,3 +221,4 @@ class Polaznik
         ]); 
         return $izraz->fetchAll(); 
     }
+}

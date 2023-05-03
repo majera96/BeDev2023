@@ -1,4 +1,6 @@
 
+let odabraniPolaznik=null;
+
      $( '#uvjet' ).autocomplete({
         source: function(req,res){
            $.ajax({
@@ -12,8 +14,16 @@
         },
         minLength: 2,
         select:function(dogadaj,ui){
-            console.log(ui.item);
-            spremi(ui.item);
+            //console.log(ui.item);
+            //spremi(ui.item);
+            odabraniPolaznik = ui.item;
+            $("#napomenaModal").foundation("open");
+            setTimeout(() => {
+                $('#napomena').focus();
+            }, 50);
+           
+            
+
         }
     }).autocomplete( 'instance' )._renderItem = function( ul, item ) {
         return $( '<li>' )
@@ -24,12 +34,16 @@
 function spremi(polaznik){
     $.ajax({
         url: url + 'grupa/dodajpolaznik?grupa=' + grupa + 
-             '&polaznik=' + polaznik.sifra,
+             '&polaznik=' + polaznik.sifra + '&napomena=' + 
+             polaznik.napomena,
         success:function(odgovor){
            $('#podaci').append(
             '<tr>' + 
                 '<td>' +
                     polaznik.prezime + ' ' + polaznik.ime +
+                '</td>' + 
+                '<td>' +
+                    polaznik.napomena +
                 '</td>' + 
                 '<td>' +
                     '<a class="brisiPolaznika" href="#" id="p_' + polaznik.sifra +  '">' +
@@ -39,6 +53,8 @@ function spremi(polaznik){
                 '</td>' + 
             '</tr>'
            );
+           $("#napomenaModal").foundation("close");
+           $('#napomena').val('');
            definirajBrisanje();
      }
     }); 
@@ -61,3 +77,18 @@ function definirajBrisanje(){
 }
 
 definirajBrisanje();
+$('#naziv').focus();
+
+$('#napomenaOdustani').click(function(){
+    $("#napomenaModal").foundation("close");
+    $('#uvjet').focus();
+    return false;
+});
+
+$('#napomenaSpremi').click(function(){
+
+    odabraniPolaznik.napomena = $('#napomena').val();
+    spremi(odabraniPolaznik);
+
+    return false;
+});

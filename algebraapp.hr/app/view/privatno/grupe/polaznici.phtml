@@ -9,6 +9,7 @@
             <thead>
                 <tr>
                     <th>Polaznik</th>
+                    <th>Napomena</th>
                     <th>Akcija</th>
                 </tr>
             </thead>
@@ -16,6 +17,7 @@
                 <?php foreach($e->polaznici as $p): ?>
                     <tr>
                         <td><?=$p->prezime?> <?=$p->ime?></td>
+                        <td><?=$p->napomena?></td>
                         <td>
                             <a class="brisiPolaznika" href="#" id="p_<?=$p->sifra?>">
                                 <i style="color: red;" 
@@ -27,4 +29,28 @@
             </tbody>
         </table>
     </div>
+</div>
+
+
+
+<div class="reveal" id="napomenaModal" data-reveal>
+    <div style="max-height: 300px; overflow: auto;">
+        <p>Napomena</p>
+        <input type="text" id="napomena">
+    </div>
+  
+ 
+  <div class="grid-x grid-padding-x">
+    <div class="large-6 cell">
+        <a class="alert button expanded" 
+            href="#" id="napomenaOdustani">Odustani</a>
+    </div>
+    <div class="large-6 cell">
+    <a class="success button expanded" 
+            href="#" id="napomenaSpremi">Spremi</a>
+    </div>
+  </div>
+  <button class="close-button" data-close aria-label="Close modal" type="button">
+    <span aria-hidden="true">&times;</span>
+  </button>
 </div>

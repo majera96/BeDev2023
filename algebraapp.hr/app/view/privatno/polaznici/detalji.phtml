@@ -3,12 +3,14 @@ action="<?=App::config('url')?>polaznik/promjena/<?=$e->sifra?>">
   <h4 class="text-center">Detalji predavača</h4>
   
   
-  <label>Prezime
-    <input type="text" name="prezime" value="<?=$e->prezime?>" />
-  </label>
+
 
   <label>Ime
-    <input type="text" name="ime" value="<?=$e->ime?>" />
+    <input type="text" name="ime" id="ime" value="<?=$e->ime?>" />
+  </label>
+
+  <label>Prezime
+    <input type="text" name="prezime" id="prezime" value="<?=$e->prezime?>" />
   </label>
 
 
@@ -38,5 +40,4 @@ action="<?=App::config('url')?>polaznik/promjena/<?=$e->sifra?>">
 
 
 </form>
-
 

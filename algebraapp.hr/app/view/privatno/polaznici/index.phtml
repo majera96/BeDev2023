@@ -1,26 +1,73 @@
-<a href="<?=App::config('url')?>polaznik/novi"
-    class="success button expanded">Dodaj novi</a>
+<div class="grid-x grid-padding-x" style="margin-top: 10px;">
+    <div class="large-10 cell">
+        <form action="<?=App::config('url')?>polaznik/index" method="get">
+            <input type="text" name="uvjet" 
+            placeholder="Unesite dio imena, prezimena ili OIB-a"
+            value="<?=$uvjet?>" />
+        </form>
+    </div>
+    <div class="large-2 cell">
+        <a href="<?=App::config('url')?>polaznik/novi"
+            class="success button expanded">Dodaj novi</a>
+    </div>
+</div>
+
+
+
+
+
 <div class="grid-x grid-padding-x">
     <?php foreach($entiteti as $e):?>
-        <div class="large-3 cell">
+        <div class="large-2 cell">
             <div class="callout" style="text-align: center;">
-                slika
+                <img style="cursor: pointer;" class="slika" id="p_<?=$e->sifra?>" src="<?=$e->slika?>" 
                 <hr />
-                <h1 style="font-size: 1.5rem;"> <?=$e->prezime?> <?=$e->ime?></h1>
-                <?=$e->email?>, <?=$e->oib?>
+                <p title="<?=$e->email?>, <?=$e->oib?>"> <?=$e->prezime?><br /><?=$e->ime?></p>
+                
                 <hr />
                 <a href="<?=App::config('url')?>polaznik/promjena/<?=$e->sifra?>">
                     <i style="color: blue;" 
                     class="step fi-pencil size-36"></i>
                 </a>
                 <?php if($e->grupa==0):?>
-                    <a onclick="return confirm('Sigurno obrisati <?=$e->prezime?>?');" 
-                    href="<?=App::config('url')?>polaznik/brisanje/<?=$e->sifra?>">
+                    <a class="brisanjePolaznika" id="b_<?=$e->sifra?>"
+                    href="<?=App::config('url')?>polaznik/brisanje/<?=$e->sifra?>?uvjet=<?=$uvjet?>&stranica=<?=$stranica;?>">
                         <i style="color: red;" 
                         class="step fi-page-delete size-36"></i>
                     </a>
+                    <?php else: ?>
+                        <i style="color: gray;" title="Polaznik se ne može obrisati jer je na jednoj ili više grupa" 
+                        class="step fi-page-delete size-36"></i>
                 <?php endif; ?>
             </div>
         </div>
     <?php endforeach ?>
+</div>
+
+<?php include 'stranicenje.phtml' ?>
+
+
+
+<div class="reveal" id="slikaModal" data-reveal>
+    <div style="max-height: 300px; overflow: auto;">
+        <img id="image" src="" alt="" />
+    </div>
+  
+  <input type="file" id="inputImage" name="file" accept=".jpg,.jpeg,.png,.gif,.bmp,.tiff">
+  <a href="#" id="spremi">Spremi</a>
+  <button class="close-button" data-close aria-label="Close modal" type="button">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="reveal" id="brisiModal" data-reveal>
+    <h1>
+    Sigurno obrisati?
+    </h1>    
+    <img id="stoSeBrise"></img>
+
+   <a href="#" id="obrisi">Obriši</a>
+  <button class="close-button" data-close aria-label="Close modal" type="button">
+    <span aria-hidden="true">&times;</span>
+  </button>
 </div>

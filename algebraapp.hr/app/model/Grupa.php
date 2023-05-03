@@ -19,9 +19,17 @@ class Grupa
         if($grupa->datumpocetka=='0000-00-00 00:00:00'){
             $grupa->datumpocetka=null;
         }
+        $grupa->polaznici = Grupa::polazniciNaGrupi($sifra);
+
+        return $grupa;
+    }
+
+    public static function polazniciNaGrupi($sifra)
+    {
+        $veza = DB::getInstance();
         $izraz = $veza->prepare('
         
-           select a.sifra, b.ime, b.prezime 
+           select a.sifra, b.ime, b.prezime, c.napomena, b.email
            from polaznik a inner join osoba b
            on a.osoba=b.sifra inner join clan c
            on c.polaznik=a.sifra where c.grupa=:sifra
@@ -30,9 +38,7 @@ class Grupa
         $izraz->execute([
             'sifra'=>$sifra
         ]);
-        $grupa->polaznici = $izraz->fetchAll();
-
-        return $grupa;
+        return $izraz->fetchAll();
     }
 
     public static function read()
@@ -107,18 +113,19 @@ class Grupa
         
     }
 
-    public static function dodajpolaznik($grupa,$polaznik)
+    public static function dodajpolaznik($grupa,$polaznik,$napomena)
     {
         $veza = DB::getInstance();
         $izraz = $veza->prepare('
         
-           insert into clan(grupa,polaznik) values
-           (:grupa,:polaznik)
+           insert into clan(grupa,polaznik,napomena) values
+           (:grupa,:polaznik,:napomena)
         
         ');
         $izraz->execute([
             'grupa'=>$grupa,
-            'polaznik'=>$polaznik
+            'polaznik'=>$polaznik,
+            'napomena'=>$napomena
         ]);
     }
 
@@ -137,4 +144,20 @@ class Grupa
         ]);
     }
 
+    public static function brojPolaznikaNaGrupi()
+    {
+        $veza = DB::getInstance();
+        $izraz = $veza->prepare('
+        
+        select a.naziv as name, count(b.polaznik) as y
+        from grupa a left join clan b 
+        on a.sifra=b.grupa
+        group by a.naziv
+        order by 2 desc;
+        
+        
+        '); 
+        $izraz->execute();
+        return $izraz->fetchAll();
+    }
 }

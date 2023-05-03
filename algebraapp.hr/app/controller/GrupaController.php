@@ -1,5 +1,7 @@
 <?php
 
+use PHPMailer\PHPMailer\PHPMailer as PHPMailer;
+
 class GrupaController extends AutorizacijaController
 {
     private $phtmlDir = 'privatno' . 
@@ -32,7 +34,7 @@ class GrupaController extends AutorizacijaController
     {
         $novi = Grupa::create([
             'naziv'=>'',
-            'smjer'=>1,
+            'smjer'=>1, //DZ: što ako nema smjera s šifrom 1 ili što ako nema niti jednog smjera u bazi
             'predavac'=>null,
             'datumpocetka'=>'',
             'maksimalnopolaznika'=>'20'
@@ -49,16 +51,17 @@ class GrupaController extends AutorizacijaController
         if(!isset($_POST['naziv'])){
 
             $e = Grupa::readOne($sifra);
-            //Log::log($e);
+            //Log::log($e); 
+            if($e==null){
+                header('location: ' . App::config('url') . 'grupa');
+            }
             if($e->datumpocetka!=null){
                 $e->datumpocetka = date('Y-m-d',
                 strtotime($e->datumpocetka));
             }else{
                 $e->datumpocetka = '';
             }
-            if($e==null){
-                header('location: ' . App::config('url') . 'grupa');
-            }
+           
            
             $this->detalji($e,$smjerovi,$predavaci,'Unesite podatke');
            
@@ -67,6 +70,9 @@ class GrupaController extends AutorizacijaController
 
         $this->entitet = (object) $_POST;
         $this->entitet->sifra=$sifra;
+
+
+        $this->entitet->polaznici = Grupa::polazniciNaGrupi($sifra);
         
     
         
@@ -156,7 +162,7 @@ class GrupaController extends AutorizacijaController
         if(!isset($_GET['grupa']) || !isset($_GET['polaznik'])){
             return;
         }
-        Grupa::dodajpolaznik($_GET['grupa'],$_GET['polaznik']);
+        Grupa::dodajpolaznik($_GET['grupa'],$_GET['polaznik'],$_GET['napomena']);
     }
 
     public function obrisipolaznik()
@@ -166,4 +172,5 @@ class GrupaController extends AutorizacijaController
         }
         Grupa::obrisipolaznik($_GET['grupa'],$_GET['polaznik']);
     }
-}
+   
+    }

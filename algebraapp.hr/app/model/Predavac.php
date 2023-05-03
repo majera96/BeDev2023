@@ -39,12 +39,12 @@ class Predavac
             b.oib order by 4,3
         
         ');
-        $izraz->execute();
+        $izraz->execute(); 
         return $izraz->fetchAll();
     }
 
     // CRUD - C
-    public static function create($p)
+    public static function create($p) 
     {
         $veza = DB::getInstance();
         $veza->beginTransaction();

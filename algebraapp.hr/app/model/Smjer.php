@@ -41,8 +41,9 @@ class Smjer
             select * from smjer order by naziv
         
         ');
-        $izraz->execute(); 
-        return $izraz->fetchAll(); 
+        $izraz->execute(); // OVO MORA BITI OBAVEZNO
+        return $izraz->fetchAll(); // vraća indeksni niz objekata tipa stdClass
+    }
 
     // CRUD - C
     public static function create($smjer)
@@ -89,5 +90,4 @@ class Smjer
             'sifra'=>$sifra
         ]);
     }
-}
 }

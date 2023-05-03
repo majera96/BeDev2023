@@ -7,6 +7,7 @@ if($dev){
         'dev'=>$dev,
         'url'=>'http://algebraapp.hr/',
         'nazivApp'=>'DEV Algebra App',
+        'rps'=>6,
         'baza'=>[
             'server'=>'localhost',
             'baza'=>'algebraapp',
@@ -20,6 +21,7 @@ if($dev){
         'dev'=>$dev,
         'url'=>'',
         'nazivApp'=>'',
+        'rps'=>12,
         'baza'=>[
             'server'=>'',
             'baza'=>'',

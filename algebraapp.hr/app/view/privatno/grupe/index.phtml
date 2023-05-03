@@ -27,12 +27,10 @@
                             <i style="color: blue;" 
                             class="step fi-pencil size-36"></i>
                      </a>
-                    <?php if($e->polaznika==0): ?>
                         <a href="<?=App::config('url')?>grupa/brisanje/<?=$e->sifra?>">
                             <i style="color: red;" 
                             class="step fi-page-delete size-36"></i>
                         </a>
-                    <?php endif; ?>
                 </td>
             </tr>
         <?php endforeach; ?>
