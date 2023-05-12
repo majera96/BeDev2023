@@ -10,14 +10,13 @@
                 <?=$e->email?>, <?=$e->oib?>
                 <hr />
                 <a href="<?=App::config('url')?>predavac/promjena/<?=$e->sifra?>">
-                    <i style="color: blue;" 
-                    class="step fi-pencil size-36"></i>
+                Promjena
                 </a>
+                &nbsp;&nbsp;
                 <?php if($e->grupa==0):?>
                     <a onclick="return confirm('Sigurno obrisati <?=$e->prezime?>?');" 
                     href="<?=App::config('url')?>predavac/brisanje/<?=$e->sifra?>">
-                        <i style="color: red;" 
-                        class="step fi-page-delete size-36"></i>
+                    Brisanje
                     </a>
                 <?php endif; ?>
             </div>

@@ -25,15 +25,13 @@
                 <p title="<?=$e->email?>, <?=$e->oib?>"> <?=$e->prezime?><br /><?=$e->ime?></p>
                 
                 <hr />
-                <a href="<?=App::config('url')?>polaznik/promjena/<?=$e->sifra?>">
-                    <i style="color: blue;" 
-                    class="step fi-pencil size-36"></i>
+                <a href="<?=App::config('url')?>polaznik/promjena/<?=$e->sifra?>">Promjena
                 </a>
+                &nbsp;&nbsp;
                 <?php if($e->grupa==0):?>
                     <a class="brisanjePolaznika" id="b_<?=$e->sifra?>"
                     href="<?=App::config('url')?>polaznik/brisanje/<?=$e->sifra?>?uvjet=<?=$uvjet?>&stranica=<?=$stranica;?>">
-                        <i style="color: red;" 
-                        class="step fi-page-delete size-36"></i>
+                        Brisanje
                     </a>
                     <?php else: ?>
                         <i style="color: gray;" title="Polaznik se ne može obrisati jer je na jednoj ili više grupa" 

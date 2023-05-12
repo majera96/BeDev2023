@@ -1,0 +1,15 @@
+Pozdrav,
+ja sam napravio apliakciju na svoj način, malo je drugačije od naučenog,ali evo maksimalno sam se potrudio da zadovolji vaše kriterije.
+Uglavnom:
+Faviicons mi ne rade, ne mogu nikako ubaciti, htio sam zamjeniti samo za tekst da piše Briši i Promjena.
+Registracija - nisam iskreno ni pokušavao zbog nedostatka vremena, ali u glavi imam ideju pa vj. ću to završiti.
+
+oper@algebra.hr
+o
+
+admin@algebra.hr
+a
+
+github: https://github.com/majera96/BeDev2023/tree/main/algebraapp.hr
+
+Nadam se pozitivnoj ocjeni :)
